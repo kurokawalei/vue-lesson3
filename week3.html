@@ -70,6 +70,7 @@
                   <button type="button" class="btn btn-outline-danger btn-sm"  @click="openModal(  'del' , item )" >
                     刪除
                   </button>
+
                 </div>
               </td>
             </tr>
@@ -106,7 +107,7 @@
                     <button class="btn btn-outline-primary btn-sm d-block w-100">
 
                       新增圖片
-                   
+
                     </button>
                   </div>
                   <div v-else>
@@ -136,7 +137,7 @@
                   <div class="row">
                     <div class="mb-3 col-md-6">
                       <label for="origin_price" class="form-label">原價</label>
-                      <input id="origin_price" type="number" min="0" class="form-control" placeholder="請輸入原價">
+                      <input id="origin_price" type="number" min="0" class="form-control" placeholder="請輸入原價" v-model.number="tempProduct.price">
                     </div>
                     <div class="mb-3 col-md-6">
                       <label for="price" class="form-label">售價</label>

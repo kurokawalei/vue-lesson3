@@ -68,7 +68,7 @@ const app = createApp({
       axios.get(`${this.apiurl}/v2/api/${this.path}/admin/products`)
         .then((res) => {
 
-          console.log(res)
+      
 
           this.products = res.data.products;
 
@@ -109,18 +109,61 @@ const app = createApp({
      
     },
 
-    changePr() {
+    updataPr() {
 
-      alert('更新產品')
+      //新增
+
+      let url = `${ this.apiurl }/api/${this.path}/admin/product`;
+      let http = 'post';
+
+
+      axios.post( url ,  { data: this.tempProduct } )
+      .then( (res) => {
+      alert(res.data.message);
+      productModal.hide();
+
+      })
+      .catch( (res) => {
+        console.log( res.data );
+      });
+      
+
+
+      //修改
+
+      // if (!this.states) {
+      //   url = `${this.apiUrl}/api/${this.Path}/admin/product/${this.tempProduct.id}`;
+      //   http = 'put'
+      // }
+
+      
+
+
+
+    
      
     },
 
-    delPr() {
+    delPr(){
 
-      alert('確認刪除')
+      //刪除產品
 
-    }
+      axios.delete(`${this.apiurl}/api/${this.path}/admin/product/${this.tempProduct.id}`)
+      .then( (res) => {
 
+        alert(res.data.message);
+        delModal.hide();
+
+
+
+      } )
+      .catch(  (er) => {
+        console.log(er.data.messgae)
+      } )
+
+    },
+
+   
 
   },
 

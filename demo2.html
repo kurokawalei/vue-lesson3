@@ -287,8 +287,10 @@ createApp({
         url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
         http = 'put'
       }
+      
+      
 
-      axios[http](url, { data: this.tempProduct }).then((response) => {
+      axios[http](url, { data: this.tempProduct } ).then((response) => {
         alert(response.data.message);
         productModal.hide();
         this.getData();
