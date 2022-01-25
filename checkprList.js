@@ -65,7 +65,7 @@ const app = createApp({
 
 
       // https://vue3-course-api.hexschool.io/v2/api/kurokawa2021/admin/products
-      axios.get(`${this.apiurl}/v2/api/${this.path}/admin/products`)
+      axios.get(`${this.apiurl}/v2/api/${this.path}/admin/products/all`)
         .then((res) => {
 
       
@@ -85,13 +85,14 @@ const app = createApp({
         this.tempProduct = {
           imagesUrl: [],
         };
+        
         this.states = true;
        productModal.show();
       }else if (  isNew === 'edit'  ){
 
         //淺拷貝
         this.tempProduct = { ...item };
-        console.log(item)
+        console.log(item);
 
         this.states = false;
         productModal.show();
@@ -100,6 +101,8 @@ const app = createApp({
       }else if ( isNew === 'del'  ) {
 
         this.tempProduct = { ...item };
+
+       
         delModal.show();
 
 
@@ -113,28 +116,50 @@ const app = createApp({
 
       //新增
 
-      let url = `${ this.apiurl }/api/${this.path}/admin/product`;
-      let http = 'post';
+      if (this.states) {
 
-
-      axios.post( url ,  { data: this.tempProduct } )
-      .then( (res) => {
-      alert(res.data.message);
-      productModal.hide();
-
-      })
-      .catch( (res) => {
-        console.log( res.data );
-      });
+        let url = `${ this.apiurl }/v2/api/${this.path}/admin/product`;
       
+        axios.post( url ,  { data: this.tempProduct } )
+        .then( (res) => {
+        alert(res.data.message);
+        productModal.hide();
+  
+        //更新渲染
+        this.getlist();
+  
+        
+  
+        })
+        .catch( (res) => {
+          console.log( res.data );
+        });
+        
+      }
 
 
       //修改
 
-      // if (!this.states) {
-      //   url = `${this.apiUrl}/api/${this.Path}/admin/product/${this.tempProduct.id}`;
-      //   http = 'put'
-      // }
+      if (!this.states) {
+
+        let url = `${this.apiurl}/v2/api/${this.path}/admin/product/${this.tempProduct.id}` ;
+
+      //  https://vue3-course-api.hexschool.io/v2/api/kurokawa2021/admin/product/-MuENTXmQ9YbvCmYgORh
+      
+        axios.put( url ,  { data: this.tempProduct }  )
+        .then(  (res) => {
+
+          alert(res.data.message);
+          productModal.hide();
+           //更新渲染
+           this.getlist();
+        } )
+        .catch( (er) => {
+          console.log(er.data)
+        })
+
+
+      }
 
       
 
@@ -147,12 +172,17 @@ const app = createApp({
     delPr(){
 
       //刪除產品
+      // https://vue3-course-api.hexschool.io/v2/api/{api_path}/admin/product/{id}
 
-      axios.delete(`${this.apiurl}/api/${this.path}/admin/product/${this.tempProduct.id}`)
+
+      axios.delete(`${this.apiurl}/v2/api/${this.path}/admin/product/${this.tempProduct.id}`)
       .then( (res) => {
 
         alert(res.data.message);
         delModal.hide();
+
+        //更新渲染
+        this.getlist();
 
 
 
@@ -161,6 +191,11 @@ const app = createApp({
         console.log(er.data.messgae)
       } )
 
+    },
+
+    createImages() {
+      this.tempProduct.imagesUrl = [];
+      this.tempProduct.imagesUrl.push('');
     },
 
    
