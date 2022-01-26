@@ -92,7 +92,7 @@ const app = createApp({
 
         //淺拷貝
         this.tempProduct = { ...item };
-        console.log(item);
+       
 
         this.states = false;
         productModal.show();
