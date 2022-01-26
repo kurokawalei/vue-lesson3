@@ -127,12 +127,9 @@ const app = createApp({
   
         //更新渲染
         this.getlist();
-  
-        
-  
         })
-        .catch( (res) => {
-          console.log( res.data );
+        .catch( ( er) => {
+          alert(er.data.message);
         });
         
       }
@@ -155,7 +152,7 @@ const app = createApp({
            this.getlist();
         } )
         .catch( (er) => {
-          console.log(er.data)
+          alert(er.data.message);
         })
 
 
